@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>TimeSync | Select</title>
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/page1.css">
+    <!-- Fontawsome  -->
+    <script src="https://kit.fontawesome.com/4002938454.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Ubuntu:wght@300;400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Time Zone Select -->
+    <section class="white-section" id="about">
+        <div class="container-fluid">
+            <h2 class="section-heading">Time Zone Select</h2><br><br>
+
+
+            <!-- Dropdown menu for continents -->
+            <label for="continentSelect">Select Continent:</label>
+            <select id="continentSelect">
+                <option value="">All Continents</option>
+            </select>
+
+            <!-- Dropdown menu for timezones -->
+            <label for="timezoneSelect">Select Timezone:</label>
+            <select id="timezoneSelect">
+                <option value="">All Timezones</option>
+            </select>
+
+            <!-- "GO" button to redirect to another page -->
+            <a href="page2.html" class="btn btn-primary btn-lg goButton"><i class="fas fa-arrow-circle-right"></i>GO</a>
+
+            <div id="timezoneContainer"></div>
+
+            <script>
+                $(document).ready(function () {
+                    // Replace 'YOUR_API_KEY' with your actual TimezoneDB API key
+                    const apiKey = 'SNRQ7313WJD3';
+                    const apiUrl = `https://api.timezonedb.com/v2.1/list-time-zone?key=${apiKey}&format=json`;
+
+                    // Fetch the list of timezones from TimezoneDB API
+                    $.ajax({
+                        url: apiUrl,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            // Process the response and organize timezones by continent
+                            if (data.status === 'OK') {
+                                const timezones = data.zones;
+
+                                // Organize timezones by continent
+                                const timezonesByContinent = {};
+                                timezones.forEach(function (timezone) {
+                                    const continent = timezone.zoneName.split('/')[0];
+                                    if (!timezonesByContinent[continent]) {
+                                        timezonesByContinent[continent] = [];
+                                    }
+                                    timezonesByContinent[continent].push(timezone.zoneName);
+                                });
+
+                                // Populate the dropdown menu with continent options
+                                const continentSelect = $('#continentSelect');
+                                $.each(Object.keys(timezonesByContinent), function (index, continent) {
+                                    continentSelect.append(`<option value="${continent}">${continent}</option>`);
+                                });
+
+                                // Display timezones based on selected continent
+                                continentSelect.on('change', function () {
+                                    const selectedContinent = $(this).val();
+                                    const timezones = selectedContinent ? timezonesByContinent[selectedContinent] : data.zones;
+                                    populateTimezoneDropdown(timezones);
+                                });
+
+                                // Initially, display all timezones
+                                populateTimezoneDropdown(data.zones);
+
+                                // "GO" button click event
+                                $('.goButton').on('click', function () {
+                                    // Retrieve the selected timezone from the dropdown
+                                    const selectedTimezone = $('#timezoneSelect').val();
+
+                                    // Set a default timezone if no option is selected
+                                    const timezone = selectedTimezone || 'Asia/Manila';
+
+                                    // Store the selected timezone in sessionStorage
+                                    sessionStorage.setItem('timezone', timezone);
+
+                                    // Redirect to another HTML webpage
+                                    window.location.href = 'page2.html';
+                                });
+
+                            } else {
+                                console.error('Error fetching timezones:', data.message);
+                            }
+                        },
+                        error: function (error) {
+                            console.error('Error fetching timezones:', error);
+                        }
+                    });
+
+                    function populateTimezoneDropdown(timezoneList) {
+                        const timezoneSelect = $('#timezoneSelect');
+                        timezoneSelect.empty();
+                        timezoneSelect.append('<option value="">All Timezones</option>');
+
+                        // Populate the dropdown menu with timezone options
+                        $.each(timezoneList, function (index, timezone) {
+                            // Check if the timezone is an object and extract the 'zoneName' property
+                            const timezoneName = typeof timezone === 'object' ? timezone.zoneName : timezone;
+                            timezoneSelect.append(`<option value="${timezoneName}">${timezoneName}</option>`);
+                        });
+                    }
+                });
+
+            </script>
+        </div>
+    </section>
+
+
+
+
+    <!-- Call to Action -->
+    <section class="colored-section" id="cta">
+        <div class="container-fluid">
+            <h3 class="big-heading">Navigate TimeSync</h3>
+            <p class="pcta">Select where you want to go.</p>
+            <a href="index.html" class="btn btn-light btn-lg download-button21"><i class="fas fa-home"></i>Home Page</a>
+            <a href="page2.html" class="btn btn-dark btn-lg download-button22"><i class="far fa-clock"></i>View Clock</a>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="white-section" id="footer">
+        <div class="container-fluid">
+            <i class="foot-icon fab fa-facebook-f"></i>
+            <i class="foot-icon fab fa-instagram"></i>
+            <i class="foot-icon fab fa-twitter"></i>
+            <i class="foot-icon fas fa-envelope"></i>
+            <p>© Copyright 2023 TimeSync</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

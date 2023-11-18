@@ -1,0 +1,195 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  color: #8f8f8f;
+}
+
+/* Headers */
+.big-heading {
+  font-weight: 900;
+  font-size: 3.5rem;
+  line-height: 1.5;
+  color: whitesmoke;
+}
+
+.section-heading {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.5;
+}
+
+/* Containers */
+.container-fluid {
+  padding: 2% 14%;
+}
+
+/* Sections */
+.colored-section {
+  background-color: #274472;
+  color: #302823;
+}
+
+.white-section {
+  background-color: #F4F0ED;
+}
+
+/* Navigation Bar */
+.navbar-dark .navbar-nav .nav-link {
+  color: #C3E0E5;
+}
+
+.navbar {
+  padding: 0 0 4.5rem;
+}
+
+.navbar-brand {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.fixed {
+  color: #C3E0E5;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+
+/* Title Section */
+#title {
+  text-align: left;
+}
+
+#title .container-fluid {
+  padding: 3% 15% 7%;
+}
+
+.title-img {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+}
+
+/* Download Buttons */
+.download-button11,
+.download-button22 {
+  margin: 5% 3% 5% 0;
+}
+
+.fab {
+  margin-right: 8px;
+}
+
+/* About Us Section */
+
+.section-heading {
+  margin-top: 50px;
+}
+.ab {
+  text-align: justify;
+  margin-bottom: 50px;
+}
+
+/* Features */
+#features {
+  position: relative;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+}
+
+.features-col {
+  padding: 5%;
+}
+
+.feature-icon {
+  color: #C3E0E5;
+  margin: 1rem;
+}
+
+.feature-icon:hover {
+  color: #5885AF;
+}
+
+.pfeat {
+  color: whitesmoke;
+}
+
+/* Testimonial Section */
+#testimonials {
+  background-color: #C3E0E5;
+  color: #274472;
+}
+
+.testimonial-text {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.5;
+}
+
+.testimonial-img {
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+/* Application */
+#cta {
+  text-align: center;
+}
+
+.download-button21 {
+  margin-right: 20px;
+}
+.download-button22 {
+  margin-left: 20px;
+}
+
+.download-button21 i,
+.download-button22 i {
+  margin-right: 10px;
+}
+
+.pcta {
+  color: whitesmoke;
+}
+
+/* Footer */
+#footer {
+  background-color: white;
+}
+
+.foot-icon {
+  padding: 20px 10px;
+}
+
+@media (max-width: 1020px) {
+  #title {
+    text-align: center;
+  }
+
+  .title-img {
+    transform: rotate(0);
+    position: static;
+  }
+}
